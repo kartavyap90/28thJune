@@ -23,5 +23,17 @@ namespace Turnup.Pages
             
 
         }
+
+        public void Go_To_Employee_Page_Func(IWebDriver driver)
+        {
+            Wait_Class.Wait_To_Be_Clickable(driver, "XPath", "/html/body/div[3]/div/div/ul/li[5]/a", 20);
+            IWebElement menu1 = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
+            menu1.Click();
+
+            Wait_Class.Wait_To_Be_Clickable(driver, "XPath", "/html/body/div[3]/div/div/ul/li[5]/ul/li[2]/a", 20);
+            IWebElement employees = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[2]/a"));
+            employees.Click();
+
+        }
     }
 }

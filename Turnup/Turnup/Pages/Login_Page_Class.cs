@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,22 +18,30 @@ namespace Turnup.Pages
             //Login into portal and verify user name
             Thread.Sleep(1000);
             driver.Navigate().GoToUrl("http://horse.industryconnect.io/Account/Login?ReturnUrl=%2f");
-            IWebElement usernameTextbox = driver.FindElement(By.Id("UserName"));
-            usernameTextbox.SendKeys("hari");
+            try
+            {
+                IWebElement usernameTextbox = driver.FindElement(By.Id("UserName"));
+                usernameTextbox.SendKeys("hari");
+            }
+            catch (Exception ex) 
+            { 
+                Assert.Fail("TurnUp portal hasn't launched.",ex.Message);            
+            }
             IWebElement passwordTextbox = driver.FindElement(By.Id("Password"));
             passwordTextbox.SendKeys("123123");
             Wait_Class.Wait_To_Be_Clickable(driver, "XPath", "//*[@id=\"loginForm\"]/form/div[3]/input[1]", 20);
             IWebElement loginButton = driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/form/div[3]/input[1]"));
             loginButton.Click();
             IWebElement hellohari = driver.FindElement(By.XPath("//*[@id=\"logoutForm\"]/ul/li/a"));
-            if (hellohari.Text == "Hello hari!")
-            {
-                Console.WriteLine("User has logged Successfully");
-            }
-            else
-            {
-                Console.WriteLine("User has not logged in Successfully");
-            }
+            Assert.That(hellohari.Text == "Hello hari!", "User has not logged in Successfully. Test Failed.");
+            //if (hellohari.Text == "Hello hari!")
+            //{
+            //    Assert.Pass("User has logged Successfully");
+            //}
+            //else
+            //{
+            //    Assert.Fail("User has not logged in Successfully");
+            //}
         }
     }
 }
