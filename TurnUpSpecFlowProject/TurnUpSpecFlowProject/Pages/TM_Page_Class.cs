@@ -12,7 +12,7 @@ namespace TurnUpSpecFlowProject.Pages
     {
         public void Create_Time_Record_Func(IWebDriver driver,string code, string description, string price)
         {
-            Console.WriteLine("\nNow cursor entered into Create_Time_Record_Func().");
+            //Console.WriteLine("\nNow cursor entered into Create_Time_Record_Func().");
             Wait_Class.Wait_To_Be_Clickable(driver, "XPath", "//*[@id=\"container\"]/p/a", 20);
             IWebElement createnewbutton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
             createnewbutton.Click();
@@ -40,21 +40,20 @@ namespace TurnUpSpecFlowProject.Pages
 
         public void AssertCreateTimeRecord(IWebDriver driver, string code)
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(14000);
             IWebElement go_to_last_page_button1 = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             go_to_last_page_button1.Click();
-            Thread.Sleep(4000);
-            IWebElement New_Code = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            //Console.Write("\nValue found at last row is=>"); Console.Write(New_Code.Text);
-            Assert.That(New_Code.Text == code, "Record found in last line as value are 1, first description, 100, Test Passed and going to edit it.");
+            Thread.Sleep(14000);
+            IWebElement New_Code = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]")); //*[@id="tmsGrid"]/div[3]/table/tbody/tr[10]/td[1]
+            Assert.That(New_Code.Text == code, "Test failed.");
         }
 
             public void Edit_Time_Record_Func(IWebDriver driver,string code,string description, string price)
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(14000);
             IWebElement go_to_last_page_button1 = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             go_to_last_page_button1.Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(14000);
             IWebElement New_Code = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
            // Console.Write("\nValue found at last row is=>"); Console.Write(New_Code.Text);
             if (New_Code.Text == code)
@@ -66,7 +65,7 @@ namespace TurnUpSpecFlowProject.Pages
 
                 IWebElement code_textbox_2 = driver.FindElement(By.Id("Code")); code_textbox_2.Clear();
                 code_textbox_2.SendKeys(code);
-                IWebElement description_textbox_2 = driver.FindElement(By.Id("description")); description_textbox_2.Clear();
+                IWebElement description_textbox_2 = driver.FindElement(By.Id("Description")); description_textbox_2.Clear();
                 description_textbox_2.SendKeys(description);
                 IWebElement price1 = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
                 price1.Click();
@@ -82,30 +81,33 @@ namespace TurnUpSpecFlowProject.Pages
             }
             else
             {
-                Console.WriteLine("Record as value 1,frirst description, 100 not found at last line, so no edit operation happens, Test failed.");
+                Console.WriteLine("Record not found at last line, so no edit operation happens, Test failed.");
             }
         }
 
         public void Delete_Time_Record_Func(IWebDriver driver)
         {
-            Console.WriteLine(" ");
-            Console.WriteLine("Now cursor entered into Delete_Time_Record_Func().");
+            //Console.WriteLine(" ");
+            //Console.WriteLine("Now cursor entered into Delete_Time_Record_Func().");
             // Now delete the edited record
             //Got to last page
-            Thread.Sleep(4000);
+            Thread.Sleep(14000);
             //Wait_Class.Wait_To_Be_Clickable(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 20);
             IWebElement go_to_last_page_button2 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
             go_to_last_page_button2.Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(14000);
             IWebElement newCode1 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
 
             if (newCode1.Text == "2")
             {
                 IWebElement delete_button = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
                 delete_button.Click();
-                Console.WriteLine("Record foundat last line as are 2, 2nd description, 200. deleted successfully, Test Passed.");
+                Console.WriteLine("Record found at last line, deleted successfully, Test Passed.");
             }
-            else { Console.WriteLine("Record not found at last line as value are 2, 2nd description, 200, Test Failed."); }
+            else 
+            { 
+                Console.WriteLine("Record not found at last line, Test Failed.");             
+            }
         }
     }
 }

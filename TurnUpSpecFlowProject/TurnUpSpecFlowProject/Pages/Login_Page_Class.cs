@@ -14,7 +14,6 @@ namespace TurnUpSpecFlowProject.Pages
             driver.Manage().Window.Maximize();
 
             //Login into portal and verify user name
-            Thread.Sleep(1000);
             driver.Navigate().GoToUrl("http://horse.industryconnect.io/Account/Login?ReturnUrl=%2f");
             IWebElement usernameTextbox = driver.FindElement(By.Id("UserName"));
             usernameTextbox.SendKeys("hari");
